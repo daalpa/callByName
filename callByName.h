@@ -1,3 +1,7 @@
+/*
+ * Daniel Alves Paladim 2015
+ */
+
 #ifndef CALL_BY_NAME_H
 #define CALL_BY_NAME_H
 

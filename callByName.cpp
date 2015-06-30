@@ -1,3 +1,8 @@
+/*
+ * Daniel Alves Paladim 2015
+ */
+
+
 #include <string>
 
 #include "callByName.h"
