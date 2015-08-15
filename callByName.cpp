@@ -13,5 +13,5 @@ void registerFunction(const std::string& name, CallableByName* function) {
 }
 
 void callFunction(const std::string name) {
-    functionContainer[name]->run();
+    functionContainer.at(name)->run();
 }
