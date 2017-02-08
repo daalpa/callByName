@@ -7,11 +7,23 @@
 
 #include "callByName.h"
 
-std::map<std::string, CallableByName*> functionContainer;
-void registerFunction(const std::string& name, CallableByName* function) {
-    functionContainer[name] = function;
+namespace CBN {
+
+inline static Container& getFunctionContainerInternal() {
+    static Container functionContainer;
+    return functionContainer;
 }
 
-void callFunction(const std::string name) {
-    functionContainer.at(name)->run();
+const Container& getFunctionContainer() {
+    return getFunctionContainerInternal();
+}
+
+void registerFunction(const std::string& name, CallableByName& function) {
+    getFunctionContainerInternal().emplace(name, function);
+}
+
+void callFunction(const std::string& name) {
+    getFunctionContainerInternal().at(name).run();
+}
+
 }

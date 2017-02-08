@@ -17,7 +17,7 @@ FUNCTION_CALL_BY_NAME(second_function) {
 int main(int argc, char* argv[]) {
     if(argc > 1) {
         try {
-        callFunction(argv[1]);
+        CBN::callFunction(argv[1]);
         } catch(std::out_of_range& ex) {
             std::cerr << "The function " << argv[1] << " does not exist." << '\n';
         }
@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
     else {
         std::cout << "No function to call provided. Type: " << argv[0] << " FUNCTION_NAME \n"
                      "where FUNCTION_NAME is any of the following\n";
-        for(const auto& name_function : functionContainer) {
+        for(const auto& name_function : CBN::getFunctionContainer()) {
             std::cout << '\t' << name_function.first << '\n';
         }
     }

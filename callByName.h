@@ -8,24 +8,30 @@
 #include <string>
 #include <map>
 
-class CallableByName {
-public:
-	virtual void run() const = 0;
-};
+namespace CBN {
 
-extern std::map<std::string, CallableByName*> functionContainer;
-void registerFunction(const std::string& name, CallableByName* function);
-void callFunction(const std::string name);
+    class CallableByName {
+        public:
+	    virtual void run() const = 0;
+    };
+
+    using Container = std::map<std::string, CallableByName&>;
+
+    void registerFunction(const std::string& name, CallableByName& function);
+    void callFunction(const std::string& name);
+    const Container& getFunctionContainer();
+
+}
 
 #define FUNCTION_CALL_BY_NAME(NAME) 	             \
-	class NAME : public CallableByName {         \
-	public:                                      \
-		NAME () {                            \
-                    registerFunction(#NAME,this);    \
+	class NAME : public CBN::CallableByName {        \
+	public:                                          \
+		NAME () {                                    \
+                 CBN::registerFunction(#NAME,*this); \
                 };                                   \
-		virtual void run() const override;   \
+		virtual void run() const override;           \
         };                                           \
-        static NAME object##NAME ;                   \
+        static NAME instance_##NAME ;                \
         void NAME :: run() const 
         
 

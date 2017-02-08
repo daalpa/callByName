@@ -36,9 +36,3 @@ functionContainer.at(name)->run();
 
 So, how do we automatically register the functions? The macro FUNCTION_CALL_BY_NAME creates a derived object of the class CallableByName defines run as the user implemented method and defines a constructor that register the function and its name using the operator #.
 
-
-Warning
--------
-
-When linking all the files, it is important to firstly list callByName.o in the linking command among all the other object files that register functions. The C++ standard does not say anything about the order that 
-global objects are created in other in units, but doing so (at least in gcc) constructs functionContainer before trying to store a function on it. Otherwise, a segmentation fault will occur.
